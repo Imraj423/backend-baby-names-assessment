@@ -83,7 +83,7 @@ def main(args):
     for file_name in file_list:
         text = extract_names(file_name)
         if create_summary:
-            summary(text, file_name + ".summary")
+            summary(text, file_name )
         else:
             print('\n'.join(text))
 

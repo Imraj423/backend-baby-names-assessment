@@ -63,8 +63,8 @@ def summary(names, filename):
         for name in names:
             file.write(name + '\n')
 
-
 def create_parser():
+    """Create a cmd line parser object with 2 argument definitions"""
     parser = argparse.ArgumentParser(description="Extracts and alphabetizes baby names from html.")
     parser.add_argument(
         '--summaryfile', help='creates a summary file', action='store_true')
@@ -78,14 +78,19 @@ def main(args):
     if not ns:
         parser.print_usage()
         sys.exit(1)
+
     file_list = ns.files
+
+    # option flag
     create_summary = ns.summaryfile
+
+    
     for file_name in file_list:
         text = extract_names(file_name)
-        if create_summary:
-            summary(text, file_name + ".summary")
+        if create_summary :
+            summary(names_list, file + '.summary')
         else:
-            print('\n'.join(text))
+            print('\n'.join(names))
 
 
 if __name__ == '__main__':
