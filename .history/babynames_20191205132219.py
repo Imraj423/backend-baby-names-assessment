@@ -42,10 +42,10 @@ Suggested milestones for incremental development:
 
 def extract_names(filename):
     names = []
+    dict1 = {}
     with open(filename) as f:
         html = f.read()
-    dict1 = {}
-    year = re.findall(r'Popularity\sin\s(\d\d\d\d)', html)[0]
+    year = re.search(r'Popularity\sin\s(\d\d\d\d)', html)
     names_list = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', html)
     for i, j, k in names_list:
         dict1[j] = i
@@ -86,7 +86,7 @@ def main(args):
         if create_summary:
             summary(text, file_name + ".summary")
         else:
-            print("stuff")
+            print('\n'.join(text))
     # for file_name in file_list:
     #     text = '{}\n'.format('\n'.join(extract_names(file_name)))
     #     if create_summary:
