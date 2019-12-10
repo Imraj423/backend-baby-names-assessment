@@ -42,10 +42,10 @@ Suggested milestones for incremental development:
 
 def extract_names(filename):
     names = []
+    dict1 = {}
     with open(filename) as f:
         html = f.read()
-    dict1 = {}
-    year = re.findall(r'Popularity\sin\s(\d\d\d\d)', html)[0]
+    year = re.findall(r'Popularity\sin\s(\d\d\d\d)', html)
     names_list = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', html)
     for i, j, k in names_list:
         dict1[j] = i
@@ -63,8 +63,8 @@ def summary(names, filename):
         for name in names:
             file.write(name + '\n')
 
-
 def create_parser():
+    """Create a cmd line parser object with 2 argument definitions"""
     parser = argparse.ArgumentParser(description="Extracts and alphabetizes baby names from html.")
     parser.add_argument(
         '--summaryfile', help='creates a summary file', action='store_true')
@@ -78,20 +78,20 @@ def main(args):
     if not ns:
         parser.print_usage()
         sys.exit(1)
+
     file_list = ns.files
+
+    # option flag
     create_summary = ns.summaryfile
+
+    
     for file_name in file_list:
-        text = '{}\n'.format('\n'.join(extract_names(file_name)))
-        # text = extract_names(file_name)
-        if create_summary:
-            summary(text, file_name + ".summary")
+        text = extract_names(file_name)
+        if create_summary :
+            summary(names_list, file + '.summary')
         else:
-            print("stuff")
-    # for file_name in file_list:
-    #     text = '{}\n'.format('\n'.join(extract_names(file_name)))
-    #     if create_summary:
-    #         with open(file_name + ".summary", 'w') as f:
-    #         f.write(text)
+            print('\n'.join(names))
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
